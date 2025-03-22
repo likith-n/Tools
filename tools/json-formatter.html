@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSON Converter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: #f4f4f4;
+        }
+        textarea {
+            width: 80%;
+            height: 150px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            padding: 12px 24px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            margin: 10px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #output {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            display: inline-block;
+            min-width: 80%;
+            background-color: #fff;
+            border-radius: 5px;
+            font-size: 16px;
+            word-wrap: break-word;
+            text-align: left;
+        }
+        .ads {
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #fff;
+            text-align: center;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <h2>JSON Converter</h2>
+    <textarea id="jsonInput" placeholder="Enter JSON here..."></textarea>
+    <br>
+    <button onclick="formatJSON()">Format JSON</button>
+    <button onclick="minifyJSON()">Minify JSON</button>
+    <div id="output">Formatted JSON will appear here...</div>
+
+    <script>
+        function formatJSON() {
+            try {
+                const input = document.getElementById("jsonInput").value;
+                const parsed = JSON.parse(input);
+                document.getElementById("output").innerText = JSON.stringify(parsed, null, 4);
+            } catch (error) {
+                document.getElementById("output").innerText = "Invalid JSON";
+            }
+        }
+
+        function minifyJSON() {
+            try {
+                const input = document.getElementById("jsonInput").value;
+                const parsed = JSON.parse(input);
+                document.getElementById("output").innerText = JSON.stringify(parsed);
+            } catch (error) {
+                document.getElementById("output").innerText = "Invalid JSON";
+            }
+        }
+    </script>
+
+    <div class="ads">
+        <h3>Sponsored Ads</h3>
+        <p>AdMob ad banner placeholder</p>
+        <!-- AdMob Ad Script -->
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <ins class="adsbygoogle"
+            style="display:block"
+            data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+            data-ad-slot="YYYYYYYYYY"
+            data-ad-format="auto"
+            data-full-width-responsive="true"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+</body>
+</html>

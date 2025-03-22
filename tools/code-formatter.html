@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Formatter - Meni Tools</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .code-container {
+            max-width: 800px;
+            margin: auto;
+        }
+        textarea {
+            resize: vertical;
+        }
+        pre {
+            background: #272822;
+            padding: 10px;
+            border-radius: 5px;
+            color: white;
+            overflow-x: auto;
+        }
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5 code-container">
+        <h1 class="text-center">Code Formatter</h1>
+        <p class="text-center">Format and beautify your code with proper indentation.</p>
+
+        <!-- Language & Indentation Options -->
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label for="languageSelect" class="form-label">Language</label>
+                <select class="form-select" id="languageSelect">
+                    <option value="javascript">JavaScript</option>
+                    <option value="html">HTML</option>
+                    <option value="css">CSS</option>
+                    <option value="json">JSON</option>
+                </select>
+            </div>
+            <div class="col-md-6">
+                <label for="indentSize" class="form-label">Indent Size</label>
+                <select class="form-select" id="indentSize">
+                    <option value="2">2 spaces</option>
+                    <option value="4" selected>4 spaces</option>
+                    <option value="tab">Tab</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Input Code -->
+        <div class="mb-3">
+            <label for="inputCode" class="form-label">Input Code</label>
+            <textarea class="form-control" id="inputCode" rows="8" placeholder="Paste your code here..."></textarea>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="btn-group mb-4">
+            <button class="btn btn-primary" id="formatBtn"><i class="fas fa-magic"></i> Format Code</button>
+            <button class="btn btn-secondary" id="copyBtn"><i class="fas fa-copy"></i> Copy</button>
+            <button class="btn btn-danger" id="clearBtn"><i class="fas fa-trash"></i> Clear</button>
+        </div>
+
+        <!-- Output Code -->
+        <div class="mb-3">
+            <label for="outputCode" class="form-label">Formatted Code</label>
+            <pre><code id="outputCode" class="language-none"></code></pre>
+        </div>
+    </div>
+
+    <!-- Ads Section -->
+    <div class="container text-center mt-5">
+        <h3>Sponsored Ads</h3>
+        <p>AdMob ad banner placeholder</p>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <ins class="adsbygoogle"
+            style="display:block"
+            data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+            data-ad-slot="YYYYYYYYYY"
+            data-ad-format="auto"
+            data-full-width-responsive="true"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prettier/2.8.8/standalone.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prettier/2.8.8/parser-babel.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prettier/2.8.8/parser-html.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prettier/2.8.8/parser-postcss.js"></script>
+    
+    <script>
+        document.getElementById("formatBtn").addEventListener("click", formatCode);
+        document.getElementById("copyBtn").addEventListener("click", copyCode);
+        document.getElementById("clearBtn").addEventListener("click", clearCode);
+
+        function formatCode() {
+            let code = document.getElementById("inputCode").value;
+            let lang = document.getElementById("languageSelect").value;
+            let indentSize = document.getElementById("indentSize").value;
+            
+            if (!code.trim()) {
+                alert("Please enter some code to format!");
+                return;
+            }
+
+            let parser;
+            switch (lang) {
+                case "javascript": parser = "babel"; break;
+                case "html": parser = "html"; break;
+                case "css": parser = "css"; break;
+                case "json": parser = "json"; break;
+                default: parser = "babel";
+            }
+
+            let options = {
+                parser: parser,
+                tabWidth: indentSize === "tab" ? 4 : parseInt(indentSize),
+                useTabs: indentSize === "tab",
+                printWidth: 80,
+                singleQuote: true,
+                trailingComma: "es5",
+                bracketSpacing: true,
+                semi: true
+            };
+
+            try {
+                let formattedCode = prettier.format(code, options);
+                document.getElementById("outputCode").textContent = formattedCode;
+                document.getElementById("outputCode").className = `language-${lang}`;
+                Prism.highlightElement(document.getElementById("outputCode"));
+            } catch (error) {
+                alert("Error formatting code: " + error.message);
+            }
+        }
+
+        function copyCode() {
+            let formattedCode = document.getElementById("outputCode").textContent;
+            if (!formattedCode) {
+                alert("No formatted code to copy!");
+                return;
+            }
+            navigator.clipboard.writeText(formattedCode);
+            alert("Code copied!");
+        }
+
+        function clearCode() {
+            document.getElementById("inputCode").value = "";
+            document.getElementById("outputCode").textContent = "";
+        }
+    </script>
+</body>
+</html>

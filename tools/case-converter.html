@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Converter - Multi-Tools Hub</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="card">
+                    <div class="card-body">
+                        <h1 class="text-center mb-4">Case Converter</h1>
+                        <p class="text-center">Convert text between different case styles instantly.</p>
+
+                        <!-- Input Section -->
+                        <div class="mb-4">
+                            <label for="text-input" class="form-label">Enter Text</label>
+                            <textarea class="form-control" id="text-input" rows="5" placeholder="Enter your text..."></textarea>
+                        </div>
+
+                        <!-- Case Options -->
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <input type="radio" name="case-type" id="uppercase" value="uppercase">
+                                <label for="uppercase">UPPERCASE</label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="radio" name="case-type" id="lowercase" value="lowercase">
+                                <label for="lowercase">lowercase</label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="radio" name="case-type" id="titlecase" value="titlecase">
+                                <label for="titlecase">Title Case</label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="radio" name="case-type" id="sentencecase" value="sentencecase">
+                                <label for="sentencecase">Sentence case</label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="radio" name="case-type" id="alternating" value="alternating">
+                                <label for="alternating">aLtErNaTiNg</label>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="radio" name="case-type" id="inverse" value="inverse">
+                                <label for="inverse">InVeRsE</label>
+                            </div>
+                        </div>
+
+                        <!-- Output Section -->
+                        <div class="mt-4">
+                            <label for="text-output" class="form-label">Converted Text</label>
+                            <textarea class="form-control" id="text-output" rows="5" readonly></textarea>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="d-flex justify-content-center gap-2 mt-3">
+                            <button id="convert-button" class="btn btn-primary"><i class="fas fa-sync-alt"></i> Convert</button>
+                            <button id="copy-button" class="btn btn-secondary"><i class="fas fa-copy"></i> Copy</button>
+                            <button id="download-button" class="btn btn-success"><i class="fas fa-download"></i> Download</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Ads Section -->
+    <div class="container text-center mt-5">
+        <h3>Sponsored Ads</h3>
+        <p>AdMob ad banner placeholder</p>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <ins class="adsbygoogle"
+            style="display:block"
+            data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+            data-ad-slot="YYYYYYYYYY"
+            data-ad-format="auto"
+            data-full-width-responsive="true"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
+    <script>
+        document.getElementById("convert-button").addEventListener("click", convertText);
+        document.getElementById("copy-button").addEventListener("click", copyText);
+        document.getElementById("download-button").addEventListener("click", downloadText);
+
+        function convertText() {
+            let text = document.getElementById("text-input").value;
+            let caseType = document.querySelector('input[name="case-type"]:checked')?.value;
+            let output = "";
+
+            if (!text) {
+                alert("Please enter some text!");
+                return;
+            }
+
+            switch (caseType) {
+                case "uppercase":
+                    output = text.toUpperCase();
+                    break;
+                case "lowercase":
+                    output = text.toLowerCase();
+                    break;
+                case "titlecase":
+                    output = text.replace(/\b\w/g, (char) => char.toUpperCase());
+                    break;
+                case "sentencecase":
+                    output = text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+                    break;
+                case "alternating":
+                    output = text.split("").map((char, i) => (i % 2 === 0 ? char.toLowerCase() : char.toUpperCase())).join("");
+                    break;
+                case "inverse":
+                    output = text.split("").map((char) => (char === char.toUpperCase() ? char.toLowerCase() : char.toUpperCase())).join("");
+                    break;
+                default:
+                    alert("Please select a case type!");
+                    return;
+            }
+
+            document.getElementById("text-output").value = output;
+        }
+
+        function copyText() {
+            let outputText = document.getElementById("text-output");
+            if (!outputText.value) {
+                alert("Nothing to copy!");
+                return;
+            }
+            outputText.select();
+            document.execCommand("copy");
+            alert("Text copied!");
+        }
+
+        function downloadText() {
+            let text = document.getElementById("text-output").value;
+            if (!text) {
+                alert("Nothing to download!");
+                return;
+            }
+            let blob = new Blob([text], { type: "text/plain" });
+            let link = document.createElement("a");
+            link.href = URL.createObjectURL(blob);
+            link.download = "converted-text.txt";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+    </script>
+</body>
+</html>

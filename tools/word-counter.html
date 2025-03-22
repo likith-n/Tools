@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word Counter - Multi-Tools Hub</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --bs-body-bg: #ffffff;
+            --bs-body-color: #212529;
+        }
+
+        [data-bs-theme="dark"] {
+            --bs-body-bg: #212529;
+            --bs-body-color: #f8f9fa;
+            --bs-card-bg: #2d3339;
+        }
+
+        body {
+            background-color: var(--bs-body-bg);
+            color: var(--bs-body-color);
+            min-height: 100vh;
+        }
+
+        .stat-box {
+            background-color: var(--bs-tertiary-bg);
+            border-radius: 8px;
+            padding: 1rem;
+            margin: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <main class="container my-5">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h1 class="card-title text-center mb-4">Word Counter</h1>
+                        
+                        <!-- Input Section -->
+                        <div class="mb-4">
+                            <textarea class="form-control" id="textInput" 
+                                      rows="6" 
+                                      placeholder="Start typing or paste your text here..."
+                                      style="resize: vertical;"></textarea>
+                        </div>
+
+                        <!-- Results Section -->
+                        <div class="card bg-light mb-4">
+                            <div class="card-body">
+                                <div class="row text-center">
+                                    <div class="col-md-4 mb-3">
+                                        <div class="stat-box">
+                                            <div class="text-muted small">Words</div>
+                                            <div id="wordCount" class="h2">0</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <div class="stat-box">
+                                            <div class="text-muted small">Characters</div>
+                                            <div id="charCount" class="h2">0</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <div class="stat-box">
+                                            <div class="text-muted small">Lines</div>
+                                            <div id="lineCount" class="h2">0</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="d-flex justify-content-center gap-2 flex-wrap">
+                            <button id="copyBtn" class="btn btn-outline-secondary px-4">
+                                <i class="fas fa-copy me-2"></i>Copy
+                            </button>
+                            <button id="downloadBtn" class="btn btn-success px-4">
+                                <i class="fas fa-download me-2"></i>Download
+                            </button>
+                        </div>
+
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // DOM Elements
+        const textInput = document.getElementById('textInput');
+        const wordCount = document.getElementById('wordCount');
+        const charCount = document.getElementById('charCount');
+        const lineCount = document.getElementById('lineCount');
+        const copyBtn = document.getElementById('copyBtn');
+        const downloadBtn = document.getElementById('downloadBtn');
+
+        // Update counts in real-time
+        textInput.addEventListener('input', updateCounts);
+
+        function updateCounts() {
+            const text = textInput.value;
+            
+            // Word count (handle multiple spaces)
+            const words = text.trim().split(/\s+/).filter(word => word.length > 0);
+            wordCount.textContent = words.length;
+
+            // Character count
+            charCount.textContent = text.length;
+
+            // Line count
+            const lines = text.split('\n').filter(line => line.trim().length > 0);
+            lineCount.textContent = lines.length;
+        }
+
+        // Copy functionality
+        copyBtn.addEventListener('click', () => {
+            const stats = `Words: ${wordCount.textContent}
+Characters: ${charCount.textContent}
+Lines: ${lineCount.textContent}`;
+
+            navigator.clipboard.writeText(stats).then(() => {
+                showAlert('Copied to clipboard!', 'success');
+            }).catch(() => {
+                showAlert('Failed to copy', 'danger');
+            });
+        });
+
+        // Download functionality
+        downloadBtn.addEventListener('click', () => {
+            const stats = `Words: ${wordCount.textContent}
+Characters: ${charCount.textContent}
+Lines: ${lineCount.textContent}`;
+
+            const blob = new Blob([stats], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'text-stats.txt';
+            a.click();
+            window.URL.revokeObjectURL(url);
+        });
+
+        // Simple alert function
+        function showAlert(message, type = 'success') {
+            const alert = document.createElement('div');
+            alert.className = `alert alert-${type} position-fixed top-0 end-0 m-3`;
+            alert.textContent = message;
+            document.body.appendChild(alert);
+            setTimeout(() => alert.remove(), 2000);
+        }
+
+        // Initialize counts on load
+        updateCounts();
+    </script>
+</body>
+</html>

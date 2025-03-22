@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Diff Checker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: #f4f4f4;
+        }
+        textarea {
+            width: 45%;
+            height: 150px;
+            padding: 10px;
+            margin: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            padding: 12px 24px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+            margin: 20px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            border-radius: 5px;
+            font-size: 16px;
+            white-space: pre-wrap;
+            display: inline-block;
+            text-align: left;
+            width: 80%;
+        }
+        .removed { color: red; text-decoration: line-through; }
+        .added { color: green; font-weight: bold; }
+        .ads {
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #fff;
+            text-align: center;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/diff/5.0.0/diff.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            window.compareText = function () {
+                const text1 = document.getElementById('text1').value;
+                const text2 = document.getElementById('text2').value;
+                const resultDiv = document.getElementById('result');
+
+                if (typeof Diff === "undefined" || typeof Diff.diffWords !== "function") {
+                    resultDiv.innerHTML = "Error: Diff.js library not loaded.";
+                    return;
+                }
+
+                const differences = Diff.diffWords(text1, text2);
+                let resultHTML = '';
+                differences.forEach(part => {
+                    const span = `<span class="${part.added ? 'added' : part.removed ? 'removed' : ''}">${part.value}</span>`;
+                    resultHTML += span;
+                });
+
+                resultDiv.innerHTML = resultHTML;
+            };
+        });
+    </script>
+</head>
+<body>
+    <h2>Text Diff Checker</h2>
+    <textarea id="text1" placeholder="Enter first text..."></textarea>
+    <textarea id="text2" placeholder="Enter second text..."></textarea>
+    <br>
+    <button onclick="compareText()">Compare</button>
+    <div id="result">Differences will appear here...</div>
+    
+    <div class="ads">
+        <h3>Sponsored Ads</h3>
+        <p>AdMob ad banner placeholder</p>
+        <!-- AdMob Ad Script -->
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <ins class="adsbygoogle"
+            style="display:block"
+            data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+            data-ad-slot="YYYYYYYYYY"
+            data-ad-format="auto"
+            data-full-width-responsive="true"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+</body>
+</html>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Converter - Meni Tools</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .drop-zone {
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            padding: 2rem;
+            text-align: center;
+            color: #555;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-color: #f9f9f9;
+        }
+
+        .drop-zone:hover, .drop-zone.drag-over {
+            border-color: #0d6efd;
+            background-color: #e9ecef;
+        }
+
+        .image-preview-container {
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #previewImage {
+            max-height: 300px;
+            object-fit: contain;
+        }
+
+        /* Ads Section Styling */
+        .ads-section {
+            margin-top: 2rem;
+            padding: 1rem;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .ads-section h4 {
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            color: #333;
+        }
+
+        .ads-section img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container" style="padding-top: 76px;">
+        <div class="card mb-4">
+            <div class="card-body">
+                <h1 class="card-title mb-4">Image Converter</h1>
+                <p class="lead mb-4">Convert images between different formats with ease.</p>
+
+                <div class="row mb-4">
+                    <div class="col-md-6">
+                        <div class="mb-3">
+                            <label for="imageInput" class="form-label">Select Image</label>
+                            <input type="file" class="form-control" id="imageInput" accept="image/*">
+                        </div>
+                        <div class="mb-3">
+                            <label for="formatSelect" class="form-label">Convert To</label>
+                            <select class="form-select" id="formatSelect">
+                                <option value="png">PNG</option>
+                                <option value="jpeg">JPEG</option>
+                                <option value="webp">WebP</option>
+                                <option value="gif">GIF</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="qualityRange" class="form-label">Quality: <span id="qualityValue">90</span>%</label>
+                            <input type="range" class="form-range" id="qualityRange" min="1" max="100" value="90">
+                        </div>
+                        <div class="d-grid gap-2">
+                            <button class="btn btn-primary" id="convertBtn" disabled>
+                                <i class="fas fa-exchange-alt me-2"></i>Convert Image
+                            </button>
+                            <button class="btn btn-success" id="downloadBtn" disabled>
+                                <i class="fas fa-download me-2"></i>Download Converted Image
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="image-preview-container text-center">
+                            <img id="previewImage" class="img-fluid rounded shadow-sm d-none" alt="Preview">
+                            <div id="dropZone" class="drop-zone">
+                                <i class="fas fa-cloud-upload-alt fa-3x mb-3"></i>
+                                <p class="mb-0">Drag & Drop your image here<br>or click to select</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ads Section -->
+        <div class="ads-section">
+            <h4>Sponsored Content</h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <a href="https://example.com" target="_blank">
+                        <img src="https://via.placeholder.com/300x200" alt="Ad 1">
+                    </a>
+                </div>
+                <div class="col-md-6">
+                    <a href="https://example.com" target="_blank">
+                        <img src="https://via.placeholder.com/300x200" alt="Ad 2">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class ImageConverter {
+            constructor() {
+                this.imageInput = document.getElementById('imageInput');
+                this.formatSelect = document.getElementById('formatSelect');
+                this.qualityRange = document.getElementById('qualityRange');
+                this.qualityValue = document.getElementById('qualityValue');
+                this.convertBtn = document.getElementById('convertBtn');
+                this.downloadBtn = document.getElementById('downloadBtn');
+                this.previewImage = document.getElementById('previewImage');
+                this.dropZone = document.getElementById('dropZone');
+                this.convertedImage = null;
+                this.setupEventListeners();
+            }
+
+            setupEventListeners() {
+                this.imageInput.addEventListener('change', (e) => this.handleImageSelect(e));
+                this.qualityRange.addEventListener('input', (e) => {
+                    this.qualityValue.textContent = e.target.value;
+                });
+                this.convertBtn.addEventListener('click', () => this.convertImage());
+                this.downloadBtn.addEventListener('click', () => this.downloadImage());
+
+                // Drag and drop handlers
+                this.dropZone.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    this.dropZone.classList.add('drag-over');
+                });
+
+                this.dropZone.addEventListener('dragleave', () => {
+                    this.dropZone.classList.remove('drag-over');
+                });
+
+                this.dropZone.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    this.dropZone.classList.remove('drag-over');
+                    const file = e.dataTransfer.files[0];
+                    if (file && file.type.startsWith('image/')) {
+                        this.imageInput.files = e.dataTransfer.files;
+                        this.handleImageSelect({ target: this.imageInput });
+                    } else {
+                        alert('Please drop an image file');
+                    }
+                });
+
+                this.dropZone.addEventListener('click', () => {
+                    this.imageInput.click();
+                });
+            }
+
+            handleImageSelect(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        this.previewImage.src = e.target.result;
+                        this.previewImage.classList.remove('d-none');
+                        this.dropZone.classList.add('d-none');
+                        this.convertBtn.disabled = false;
+                    };
+                    reader.readAsDataURL(file);
+                }
+            }
+
+            convertImage() {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                const img = new Image();
+                
+                img.onload = () => {
+                    // Set canvas dimensions to match image
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    
+                    // Draw image with white background for transparent PNGs
+                    ctx.fillStyle = '#ffffff';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    ctx.drawImage(img, 0, 0);
+                    
+                    const quality = this.qualityRange.value / 100;
+                    const format = this.formatSelect.value;
+                    const mimeType = `image/${format}`;
+                    
+                    try {
+                        // Special handling for WebP and JPEG
+                        if (format === 'webp' || format === 'jpeg') {
+                            this.convertedImage = canvas.toDataURL(mimeType, quality);
+                        }
+                        // PNG doesn't use quality parameter
+                        else if (format === 'png') {
+                            this.convertedImage = canvas.toDataURL('image/png');
+                        }
+                        // GIF requires special handling
+                        else if (format === 'gif') {
+                            this.convertedImage = canvas.toDataURL('image/gif');
+                        }
+
+                        // Update preview
+                        this.previewImage.src = this.convertedImage;
+                        this.downloadBtn.disabled = false;
+                        
+                        // Calculate size reduction
+                        const originalSize = this.calculateImageSize(img.src);
+                        const convertedSize = this.calculateImageSize(this.convertedImage);
+                        const reduction = ((originalSize - convertedSize) / originalSize * 100).toFixed(1);
+                        
+                        alert(`Image converted successfully to ${format.toUpperCase()}! Size ${reduction > 0 ? 'reduced' : 'changed'} by ${Math.abs(reduction)}%`);
+                    } catch (error) {
+                        alert(`Error converting to ${format.toUpperCase()}: ${error.message}`);
+                        console.error('Conversion error:', error);
+                    }
+                };
+
+                img.onerror = () => {
+                    alert('Error loading image for conversion');
+                };
+
+                img.src = this.previewImage.src;
+            }
+
+            calculateImageSize(dataUrl) {
+                // Remove metadata from base64 string
+                const base64 = dataUrl.split(',')[1];
+                // Calculate size in bytes
+                return Math.ceil((base64.length * 3) / 4);
+            }
+
+            downloadImage() {
+                if (!this.convertedImage) return;
+                
+                const format = this.formatSelect.value;
+                const link = document.createElement('a');
+                const timestamp = new Date().getTime();
+                link.download = `converted_image_${timestamp}.${format}`;
+                link.href = this.convertedImage;
+                link.click();
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            new ImageConverter();
+        });
+    </script>
+</body>
+</html>

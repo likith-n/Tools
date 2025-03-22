@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Preview Generator - Meni Tools</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+    <style>
+        .preview-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            overflow: hidden;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .preview-image {
+            width: 100%;
+            height: 315px;
+            object-fit: cover;
+            background-color: #f8f9fa;
+        }
+        .preview-meta {
+            padding: 15px;
+            background: white;
+        }
+        .preview-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #1a1a1a;
+        }
+        .preview-description {
+            font-size: 14px;
+            color: #65676b;
+            margin-bottom: 8px;
+        }
+        .preview-url {
+            font-size: 12px;
+            color: #8e8e8e;
+        }
+        .platform-specific {
+            display: none;
+        }
+        .platform-specific.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div id="header"></div>
+    <main class="container my-5">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="mb-4">Social Preview Generator</h1>
+                <p class="lead mb-4">Create engaging social media preview cards for your content across different platforms.</p>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <form id="previewForm">
+                            <div class="mb-3">
+                                <label class="form-label">Platform</label>
+                                <select class="form-select" id="platform">
+                                    <option value="facebook">Facebook</option>
+                                    <option value="twitter">Twitter</option>
+                                    <option value="linkedin">LinkedIn</option>
+                                </select>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Title</label>
+                                <input type="text" class="form-control" id="title" maxlength="60" required>
+                                <div class="form-text">
+                                    <span id="titleCount">0</span>/60 characters
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Description</label>
+                                <textarea class="form-control" id="description" rows="3" maxlength="160" required></textarea>
+                                <div class="form-text">
+                                    <span id="descriptionCount">0</span>/160 characters
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">URL</label>
+                                <input type="url" class="form-control" id="url" required>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Image</label>
+                                <input type="file" class="form-control" id="image" accept="image/*" required>
+                                <div class="form-text platform-specific facebook active">
+                                    Recommended size: 1200 x 630 pixels
+                                </div>
+                                <div class="form-text platform-specific twitter">
+                                    Recommended size: 1200 x 600 pixels
+                                </div>
+                                <div class="form-text platform-specific linkedin">
+                                    Recommended size: 1200 x 627 pixels
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="fas fa-magic me-2"></i>Generate Preview
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5>Meta Tags</h5>
+                        <div class="mb-3">
+                            <label class="form-label">Generated Meta Tags</label>
+                            <textarea class="form-control font-monospace" id="metaTags" rows="10" readonly></textarea>
+                        </div>
+                        <button class="btn btn-secondary w-100" id="copyMetaBtn">
+                            <i class="fas fa-copy me-2"></i>Copy Meta Tags
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="mb-3">Preview</h5>
+                        <div class="preview-card">
+                            <img id="previewImage" class="preview-image" src="data:image/gif;base64,R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==">
+                            <div class="preview-meta">
+                                <div class="preview-title" id="previewTitle">Your title will appear here</div>
+                                <div class="preview-description" id="previewDescription">Your description will appear here</div>
+                                <div class="preview-url" id="previewUrl">example.com</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-body">
+                        <h5>Tips for Better Previews</h5>
+                        <ul class="mb-0">
+                            <li>Keep titles concise and engaging</li>
+                            <li>Write clear, descriptive meta descriptions</li>
+                            <li>Use high-quality images that represent your content</li>
+                            <li>Follow platform-specific image size recommendations</li>
+                            <li>Test your previews across different devices</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <div id="footer"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/tool-template.js"></script>
+    <script src="../js/tools/social-preview-generator.js"></script>
+</body>
+</html> 

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Regex Tester</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: #f4f4f4;
+        }
+        input, textarea {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            padding: 12px 24px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            display: inline-block;
+            min-width: 80%;
+            word-wrap: break-word;
+            background-color: #fff;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .ads {
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #fff;
+            text-align: center;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <h2>Regex Tester</h2>
+    <input type="text" id="regex" placeholder="Enter Regular Expression (e.g., \d+)">
+    <textarea id="testString" placeholder="Enter text to test" rows="5"></textarea>
+    <button onclick="testRegex()">Test Regex</button>
+    <div id="result">Matches will appear here...</div>
+
+    <script>
+        function testRegex() {
+            const regexInput = document.getElementById('regex').value;
+            const testString = document.getElementById('testString').value;
+            const resultDiv = document.getElementById('result');
+
+            try {
+                const regex = new RegExp(regexInput, 'g');
+                const matches = testString.match(regex);
+                resultDiv.innerHTML = matches ? `Matches: ${matches.join(', ')}` : 'No matches found';
+            } catch (error) {
+                resultDiv.innerHTML = 'Invalid Regular Expression';
+            }
+        }
+    </script>
+
+    <div class="ads">
+        <h3>Sponsored Ads</h3>
+        <p>AdMob ad banner placeholder</p>
+        <!-- AdMob Ad Script -->
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <ins class="adsbygoogle"
+            style="display:block"
+            data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+            data-ad-slot="YYYYYYYYYY"
+            data-ad-format="auto"
+            data-full-width-responsive="true"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+</body>
+</html>

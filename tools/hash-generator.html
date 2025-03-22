@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hash Generator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: #f4f4f4;
+        }
+        input, select, textarea {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        button {
+            padding: 12px 24px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+            border-radius: 5px;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            display: inline-block;
+            min-width: 80%;
+            word-wrap: break-word;
+            background-color: #fff;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .ads {
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #fff;
+            text-align: center;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <h2>Hash Generator</h2>
+    <textarea id="inputText" placeholder="Enter text to hash" rows="5"></textarea>
+    <select id="hashType">
+        <option value="MD5">MD5</option>
+        <option value="SHA-1">SHA-1</option>
+        <option value="SHA-256">SHA-256</option>
+        <option value="SHA-512">SHA-512</option>
+    </select>
+    <button onclick="generateHash()">Generate Hash</button>
+    <div id="result">Hashed output will appear here...</div>
+
+    <script>
+        function generateHash() {
+            const text = document.getElementById('inputText').value;
+            const hashType = document.getElementById('hashType').value;
+            let hash;
+            
+            if (text.trim() === "") {
+                alert("Please enter text to hash");
+                return;
+            }
+
+            switch(hashType) {
+                case 'MD5':
+                    hash = CryptoJS.MD5(text).toString();
+                    break;
+                case 'SHA-1':
+                    hash = CryptoJS.SHA1(text).toString();
+                    break;
+                case 'SHA-256':
+                    hash = CryptoJS.SHA256(text).toString();
+                    break;
+                case 'SHA-512':
+                    hash = CryptoJS.SHA512(text).toString();
+                    break;
+            }
+            
+            document.getElementById('result').innerText = `Hashed Output: ${hash}`;
+        }
+    </script>
+
+    <div class="ads">
+        <h3>Sponsored Ads</h3>
+        <p>AdMob ad banner placeholder</p>
+        <!-- AdMob Ad Script -->
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <ins class="adsbygoogle"
+            style="display:block"
+            data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+            data-ad-slot="YYYYYYYYYY"
+            data-ad-format="auto"
+            data-full-width-responsive="true"></ins>
+        <script>
+            (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+</body>
+</html>

@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meni Tools - Your All-in-One Online Toolkit</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+    <style>
+
+
+
+    :root {
+        /* Keep existing light theme variables */
+        --footer-bg: #f8f9fa;
+        --footer-text: #212529;
+        --footer-link: #6c757d;
+    }
+
+    body.dark-theme {
+        /* Dark theme additions */
+        --footer-bg: #2d2d2d;
+        --footer-text: #ffffff;
+        --footer-link: #adb5bd;
+    }
+
+    footer {
+        background-color: var(--footer-bg) !important;
+        color: var(--footer-text);
+    }
+
+    .footer-section h5,
+    .footer-section li,
+    .footer-section p {
+        color: var(--footer-text) !important;
+    }
+
+    .footer-section a {
+        color: var(--footer-link) !important;
+    }
+
+    .footer-section a:hover {
+        color: var(--primary) !important;
+    }
+
+
+    :root {
+        --bg-color: #ffffff;
+        --text-color: #212529;
+        --primary: #0d6efd;
+        --navbar-bg: #f8f9fa;
+        --navbar-text: #212529;
+        --footer-bg: #f8f9fa;
+        --footer-text: #212529;
+        --border-color: #dee2e6;
+    }
+
+    body.dark-theme {
+        --bg-color: #1a1a1a;
+        --text-color: #e0e0e0;
+        --navbar-bg: #2d2d2d;
+        --navbar-text: #ffffff;
+        --footer-bg: #2d2d2d;
+        --footer-text: #ffffff;
+        --border-color: #404040;
+        color-scheme: dark;
+    }
+
+    /* Add these styles to existing navbar/footer rules */
+    .navbar {
+        background-color: var(--navbar-bg) !important;
+        border-bottom: 1px solid var(--border-color);
+    }
+    
+    .nav-link {
+        color: var(--navbar-text) !important;
+    }
+
+    footer {
+        background-color: var(--footer-bg) !important;
+        color: var(--footer-text);
+        border-top: 1px solid var(--border-color);
+    }
+
+    .footer-section h5 {
+        color: var(--navbar-text) !important;
+    }
+
+
+
+:root {
+        --bg-color: #ffffff;
+        --text-color: #212529;
+        --navbar-bg: #f8f9fa;
+        --card-bg: #ffffff;
+        --border-color: #dee2e6;
+    }
+
+    body.dark-theme {
+        --bg-color: #1a1a1a;
+        --text-color: #e0e0e0;
+        --navbar-bg: #2d2d2d;
+        --card-bg: #2d2d2d;
+        --border-color: #404040;
+        color-scheme: dark;
+    }
+
+    body {
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .navbar {
+        background-color: var(--navbar-bg) !important;
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .card {
+        background-color: var(--card-bg);
+        border: 1px solid var(--border-color);
+    }
+
+    /* Modify existing theme-toggle style */
+    .theme-toggle:hover {
+        background-color: var(--border-color);
+    }
+
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary) !important;
+            transition: transform 0.3s ease;
+        }
+        
+        .navbar-brand:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-link {
+            position: relative;
+            color: var(--text-color) !important;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-link.active::after {
+            width: 100%;
+        }
+
+        .theme-toggle {
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: background-color 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--bs-gray-200);
+        }
+
+
+
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand me-4" href="index.html">
+                <i class="fas fa-tools me-2"></i>Meni Tools
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto gap-3">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            Categories
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#developer-tools">Developer Tools</a></li>
+                            <li><a class="dropdown-item" href="#security-tools">Security Tools</a></li>
+                            <li><a class="dropdown-item" href="#image-tools">Image Tools</a></li>
+                            <li><a class="dropdown-item" href="#calculation-tools">Calculation Tools</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">Contact</a>
+                    </li>
+                </ul>
+                <div class="d-flex align-items-center">
+                    <button class="theme-toggle ms-4" aria-label="Toggle theme">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Add padding to account for fixed navbar -->
+    <div style="padding-top: 76px;">
+        <div id="header"></div>
+        <main class="container my-5">
+            <section class="hero text-center py-5 mb-5 border-bottom">
+                <h1 class="display-4">Welcome to Meni Tools</h1>
+                <p class="lead">Your one-stop destination for all the tools you need</p>
+            </section>
+
+            <div class="row g-4">
+                <!-- Developer Tools -->
+                <div class="col-12 mb-4">
+                    <h2 class="mb-4">Developer Tools</h2>
+                    <div class="row g-4">
+                        <!-- Code Formatter -->
+                        <div class="col-md-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <i class="fas fa-code text-primary me-2"></i>Code Formatter
+                                    </h5>
+                                    <p class="card-text">Format and beautify your code with proper indentation and style.</p>
+                                    <a href="tools/code-formatter.html" class="btn btn-primary">Open Tool</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Code Minifier -->
+                        <div class="col-md-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <i class="fas fa-compress-alt text-primary me-2"></i>Code Minifier
+                                    </h5>
+                                    <p class="card-text">Minify your code to reduce file size and improve load times.</p>
+                                    <a href="tools/code-minifier.html" class="btn btn-primary">Open Tool</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Regex Tester -->
+                        <div class="col-md-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <i class="fas fa-search text-primary me-2"></i>Regex Tester
+                                    </h5>
+                                    <p class="card-text">Test and debug your regular expressions with real-time matching.</p>
+                                    <a href="tools/regex-tester.html" class="btn btn-primary">Open Tool</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- JSON Formatter -->
+                        <div class="col-md-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <i class="fas fa-brackets-curly text-primary me-2"></i>JSON Formatter
+                                    </h5>
+                                    <p class="card-text">Format and validate JSON data with syntax highlighting.</p>
+                                    <a href="tools/json-formatter.html" class="btn btn-primary">Open Tool</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Text Diff -->
+                        <div class="col-md-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <i class="fas fa-exchange-alt text-primary me-2"></i>Text Diff
+                                    </h5>
+                                    <p class="card-text">Compare and find differences between two text snippets.</p>
+                                    <a href="tools/text-diff.html" class="btn btn-primary">Open Tool</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Word Counter -->
+                        <div class="col-md-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <i class="fas fa-calculator text-primary me-2"></i>Word Counter
+                                    </h5>
+                                    <p class="card-text">Count words, characters, and lines in your text.</p>
+                                    <a href="tools/word-counter.html" class="btn btn-primary">Open Tool</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Case Converter -->
+                        <div class="col-md-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <i class="fas fa-font text-primary me-2"></i>Case Converter
+                                    </h5>
+                                    <p class="card-text">Convert text between different letter cases.</p>
+                                    <a href="tools/case-converter.html" class="btn btn-primary">Open Tool</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Security Tools -->
+                <div class="col-12 mb-4">
+                    <h2 class="mb-4">Security Tools</h2>
+                    <div class="row g-4">
+                        <!-- Hash Generator -->
+                        <div class="col-md-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <i class="fas fa-hashtag text-primary me-2"></i>Hash Generator
+                                    </h5>
+                                    <p class="card-text">Generate secure hash values using various algorithms.</p>
+                                    <a href="tools/hash-generator.html" class="btn btn-primary">Open Tool</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--qr-code Generator -->
+                        <div class="col-md-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <i class="fas fa-hashtag text-primary me-2"></i>QR-Code Generator
+                                    </h5>
+                                    <p class="card-text">A QR Code Generator is a tool that creates Quick Response (QR) codes, which store data like URLs, text, or contact details. </p>
+                                    <a href="tools/qr-code.html" class="btn btn-primary">Open Tool</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Encryption Tool -->
+                        <div class="col-md-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <i class="fas fa-lock text-primary me-2"></i>Encryption Tool
+                                    </h5>
+                                    <p class="card-text">Encrypt and decrypt text using various algorithms.</p>
+                                    <a href="tools/encryption-tool.html" class="btn btn-primary">Open Tool</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Password Generator -->
+                        <div class="col-md-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <i class="fas fa-key text-primary me-2"></i>Password Generator
+                                    </h5>
+                                    <p class="card-text">Generate strong, secure passwords with custom requirements.</p>
+                                    <a href="tools/password-generator.html" class="btn btn-primary">Open Tool</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Base64 Converter -->
+                        <div class="col-md-4">
+                            <div class="card  h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <i class="fas fa-exchange text-primary me-2"></i>Base64 Converter
+                                    </h5>
+                                    <p class="card-text">Encode and decode Base64 data.</p>
+                                    <a href="tools/base64-converter.html" class="btn btn-primary">Open Tool</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Image Tools -->
+                <div class="col-12 mb-4">
+                    <h2 class="mb-4">Image Tools</h2>
+                    <div class="row g-4">
+                        <!-- Image Converter -->
+                        <div class="col-md-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <i class="fas fa-images text-primary me-2"></i>Image Converter
+                                    </h5>
+                                    <p class="card-text">Convert images between different formats.</p>
+                                    <a href="tools/image-converter.html" class="btn btn-primary">Open Tool</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Image Compressor -->
+                        <div class="col-md-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <i class="fas fa-compress text-primary me-2"></i>Image Compressor
+                                    </h5>
+                                    <p class="card-text">Compress images while maintaining quality.</p>
+                                    <a href="tools/image-compressor.html" class="btn btn-primary">Open Tool</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Image Cropper -->
+                        <div class="col-md-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <i class="fas fa-crop text-primary me-2"></i>Image Cropper
+                                    </h5>
+                                    <p class="card-text">Crop and resize images with precision.</p>
+                                    <a href="tools/image-cropper.html" class="btn btn-primary">Open Tool</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Image to PNG -->
+                        <div class="col-md-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <i class="fas fa-file-image text-primary me-2"></i>Image to PNG
+                                    </h5>
+                                    <p class="card-text">Convert any image format to PNG.</p>
+                                    <a href="tools/image-to-png.html" class="btn btn-primary">Open Tool</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Calculation Tools -->
+                <div class="col-12 mb-4">
+                    <h2 class="mb-4">Calculation Tools</h2>
+                    <div class="row g-4">
+                        <!-- Scientific Calculator -->
+                        <div class="col-md-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <i class="fas fa-calculator text-primary me-2"></i>Scientific Calculator
+                                    </h5>
+                                    <p class="card-text">Perform complex mathematical calculations.</p>
+                                    <a href="tools/scientific-calculator.html" class="btn btn-primary">Open Tool</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Percentage Calculator -->
+                        <div class="col-md-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <i class="fas fa-percent text-primary me-2"></i>Percentage Calculator
+                                    </h5>
+                                    <p class="card-text">Calculate percentages and percentage changes.</p>
+                                    <a href="tools/percentage-calculator.html" class="btn btn-primary">Open Tool</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- BMI Calculator -->
+                        <div class="col-md-4">
+                            <div class="card h-100">
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <i class="fas fa-weight text-primary me-2"></i>BMI Calculator
+                                    </h5>
+                                    <p class="card-text">Calculate Body Mass Index (BMI).</p>
+                                    <a href="tools/bmi-calculator.html" class="btn btn-primary">Open Tool</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features Section -->
+            <section class="my-5">
+                <h2 class="text-center mb-4">Why Choose Meni Tools?</h2>
+                <div class="row g-4">
+                    <div class="col-md-4">
+                        <div class="text-center">
+                            <i class="fas fa-bolt fa-3x text-primary mb-3"></i>
+                            <h4>Fast & Efficient</h4>
+                            <p>All tools run directly in your browser for instant results.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-center">
+                            <i class="fas fa-lock fa-3x text-primary mb-3"></i>
+                            <h4>Secure</h4>
+                            <p>Your data never leaves your browser. No server processing required.</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="text-center">
+                            <i class="fas fa-desktop fa-3x text-primary mb-3"></i>
+                            <h4>Modern Interface</h4>
+                            <p>Clean, intuitive design with dark mode support.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <!-- Footer -->
+        <footer>
+            <div class="container">
+                <div class="footer-content">
+                    <!-- About Section -->
+                    <div class="footer-section">
+                        <h5>About Meni Tools</h5>
+                        <p>Your all-in-one toolkit for developers, designers, and digital professionals. We provide free, easy-to-use online tools to make your work more efficient.</p>
+                        <div class="social-links">
+                            <a href="@Likith_2403" aria-label="Follow us on Twitter"><i class="fab fa-twitter"></i></a>
+                            <a href="https://github.com/likith-n" target="_blank" rel="noopener noreferrer" aria-label="Follow us on GitHub"><i class="fab fa-github"></i></a>
+                            <a href="" aria-label="https://www.linkedin.com/in/likith-n-957920299?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" aria-label="Follow us on Instagram"><i class="fab fa-instagram"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Quick Links -->
+                    <div class="footer-section">
+                        <h5>Quick Links</h5>
+                        <ul>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i>Home</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i>About Us</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i>Contact</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i>Privacy Policy</a></li>
+                            <li><a href="#"><i class="fas fa-chevron-right"></i>Terms of Service</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Categories -->
+                    <div class="footer-section">
+                        <h5>Categories</h5>
+                        <ul>
+                            <li><a href="#"><i class="fas fa-code"></i>Developer Tools</a></li>
+                            <li><a href="#"><i class="fas fa-shield-alt"></i>Security Tools</a></li>
+                            <li><a href="#"><i class="fas fa-image"></i>Image Tools</a></li>
+                            <li><a href="#"><i class="fas fa-calculator"></i>Calculation Tools</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Contact Info -->
+                    <div class="footer-section">
+                        <h5>Contact Us</h5>
+                        <ul>
+                            <li><a href="mailto:nlikith54@gmail.com"><i class="fas fa-envelope"></i>contact nlikith54@gmail.com</a></li>
+                            <li><a href="#"><i class="fas fa-map-marker-alt"></i>123 Tool Street, Web City</a></li>
+                            <li><a href="#"><i class="fas fa-headset"></i>Support Center</a></li>
+                            <li><a href="#"><i class="fas fa-comments"></i>Feedback</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Footer Bottom -->
+                <div class="footer-bottom">
+                    <p>&copy; 2024 Meni Tools. All rights reserved. Made with <i class="fas fa-heart text-danger"></i> for developers.</p>
+                </div>
+            </div>
+        </footer>
+    </div>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const themeToggle = document.querySelector('.theme-toggle');
+        const themeIcon = themeToggle.querySelector('i');
+        
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.body.classList.toggle('dark-theme', savedTheme === 'dark');
+        themeIcon.className = savedTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-theme');
+            const isDark = document.body.classList.contains('dark-theme');
+            
+            // Update icon
+            themeIcon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
+            
+            // Save preference
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        });
+
+        new ToolTemplate('main', 'Home Page');
+    });
+</script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/tool-template.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            new ToolTemplate('main', 'Home Page');
+        });
+    </script>
+</body>
+</html> 

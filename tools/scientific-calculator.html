@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scientific Calculator - Meni Tools</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .calculator {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        .calc-display {
+            font-family: monospace;
+            font-size: 1.5rem;
+            height: 60px;
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 10px;
+            margin-bottom: 10px;
+            text-align: right;
+            overflow: hidden;
+        }
+        .calc-history {
+            font-size: 0.875rem;
+            color: #6c757d;
+            height: 24px;
+            margin-bottom: 4px;
+            overflow: hidden;
+        }
+        .calc-current {
+            font-size: 1.5rem;
+            height: 32px;
+            overflow: hidden;
+        }
+        .calc-btn {
+            width: 100%;
+            height: 50px;
+            margin: 2px;
+            font-size: 1.1rem;
+        }
+        .calc-btn-operator {
+            background-color: #e9ecef;
+        }
+        .calc-btn-function {
+            background-color: #f8f9fa;
+        }
+        .calc-btn-number {
+            background-color: #ffffff;
+        }
+        .calc-btn-equals {
+            background-color: #0d6efd;
+            color: white;
+        }
+        .calc-btn-clear {
+            background-color: #dc3545;
+            color: white;
+        }
+
+        .calc-display {
+    font-family: monospace;
+    font-size: 2rem; /* Increase font size */
+    height: 80px; /* Increase height */
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 10px;
+    text-align: right;
+    overflow-x: auto; /* Allow scrolling if needed */
+    white-space: nowrap; /* Prevent breaking numbers */
+}
+
+.calc-current {
+    font-size: 2rem; /* Increase font size */
+    height: 40px; /* Increase height */
+    overflow-x: auto;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: block;
+}
+
+
+        /* Ads Section Styling */
+        .ads-section {
+            margin-top: 2rem;
+            padding: 1rem;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .ads-section img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div id="header-placeholder"></div>
+
+    <main class="container my-5">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h1 class="mb-4">Scientific Calculator</h1>
+                <p class="lead">Perform advanced mathematical calculations with this scientific calculator.</p>
+            </div>
+        </div>
+
+        <div class="calculator mt-4">
+            <div class="calc-display">
+                <div class="calc-history" id="calcHistory"></div>
+                <div class="calc-current" id="calcDisplay">0</div>
+            </div>
+            
+            <div class="row g-0">
+                <div class="col-3"><button class="btn calc-btn calc-btn-function" data-action="sin">sin</button></div>
+                <div class="col-3"><button class="btn calc-btn calc-btn-function" data-action="cos">cos</button></div>
+                <div class="col-3"><button class="btn calc-btn calc-btn-function" data-action="tan">tan</button></div>
+                <div class="col-3"><button class="btn calc-btn calc-btn-function" data-action="pi">π</button></div>
+            </div>
+
+            <div class="row g-0">
+                <div class="col-3"><button class="btn calc-btn calc-btn-function" data-action="sqrt">√</button></div>
+                <div class="col-3"><button class="btn calc-btn calc-btn-function" data-action="pow2">x²</button></div>
+                <div class="col-3"><button class="btn calc-btn calc-btn-function" data-action="pow">xʸ</button></div>
+                <div class="col-3"><button class="btn calc-btn calc-btn-function" data-action="log">log</button></div>
+            </div>
+
+            <div class="row g-0">
+                <div class="col-3"><button class="btn calc-btn calc-btn-function" data-action="ln">ln</button></div>
+                <div class="col-3"><button class="btn calc-btn calc-btn-function" data-action="exp">e</button></div>
+                <div class="col-3"><button class="btn calc-btn calc-btn-function" data-action="fact">n!</button></div>
+                <div class="col-3"><button class="btn calc-btn calc-btn-function" data-action="inv">1/x</button></div>
+            </div>
+
+            <div class="row g-0">
+                <div class="col-3"><button class="btn calc-btn calc-btn-clear" data-action="clear">C</button></div>
+                <div class="col-3"><button class="btn calc-btn calc-btn-clear" data-action="clearEntry">CE</button></div>
+                <div class="col-3"><button class="btn calc-btn calc-btn-clear" data-action="backspace">⌫</button></div>
+                <div class="col-3"><button class="btn calc-btn calc-btn-operator" data-action="divide">÷</button></div>
+            </div>
+
+            <div class="row g-0">
+                <div class="col-3"><button class="btn calc-btn calc-btn-number" data-number="7">7</button></div>
+                <div class="col-3"><button class="btn calc-btn calc-btn-number" data-number="8">8</button></div>
+                <div class="col-3"><button class="btn calc-btn calc-btn-number" data-number="9">9</button></div>
+                <div class="col-3"><button class="btn calc-btn calc-btn-operator" data-action="multiply">×</button></div>
+            </div>
+
+            <div class="row g-0">
+                <div class="col-3"><button class="btn calc-btn calc-btn-number" data-number="4">4</button></div>
+                <div class="col-3"><button class="btn calc-btn calc-btn-number" data-number="5">5</button></div>
+                <div class="col-3"><button class="btn calc-btn calc-btn-number" data-number="6">6</button></div>
+                <div class="col-3"><button class="btn calc-btn calc-btn-operator" data-action="subtract">−</button></div>
+            </div>
+
+            <div class="row g-0">
+                <div class="col-3"><button class="btn calc-btn calc-btn-number" data-number="1">1</button></div>
+                <div class="col-3"><button class="btn calc-btn calc-btn-number" data-number="2">2</button></div>
+                <div class="col-3"><button class="btn calc-btn calc-btn-number" data-number="3">3</button></div>
+                <div class="col-3"><button class="btn calc-btn calc-btn-operator" data-action="add">+</button></div>
+            </div>
+
+            <div class="row g-0">
+                <div class="col-3"><button class="btn calc-btn calc-btn-number" data-action="toggleSign">±</button></div>
+                <div class="col-3"><button class="btn calc-btn calc-btn-number" data-number="0">0</button></div>
+                <div class="col-3"><button class="btn calc-btn calc-btn-number" data-action="decimal">.</button></div>
+                <div class="col-3"><button class="btn calc-btn calc-btn-equals" data-action="equals">=</button></div>
+            </div>
+        </div>
+
+        <!-- Ads Section -->
+        <div class="ads-section">
+            <h4>Sponsored Content</h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <a href="https://example.com" target="_blank">
+                        <img src="https://via.placeholder.com/300x200" alt="Ad 1">
+                    </a>
+                </div>
+                <div class="col-md-6">
+                    <a href="https://example.com" target="_blank">
+                        <img src="https://via.placeholder.com/300x200" alt="Ad 2">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div id="footer-placeholder"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        class ScientificCalculator {
+            constructor() {
+                this.display = document.getElementById('calcDisplay');
+                this.history = document.getElementById('calcHistory');
+                this.currentValue = '0';
+                this.previousValue = '';
+                this.operation = null;
+                this.shouldResetDisplay = false;
+                this.isInRadians = true;
+                this.setupEventListeners();
+            }
+
+            setupEventListeners() {
+                document.querySelectorAll('[data-number]').forEach(button => {
+                    button.addEventListener('click', () => this.appendNumber(button.dataset.number));
+                });
+
+                document.querySelectorAll('[data-action]').forEach(button => {
+                    button.addEventListener('click', () => this.handleAction(button.dataset.action));
+                });
+
+                document.addEventListener('keydown', this.handleKeyboard.bind(this));
+            }
+
+            appendNumber(number) {
+                if (this.shouldResetDisplay) {
+                    this.currentValue = '';
+                    this.shouldResetDisplay = false;
+                }
+                if (this.currentValue === '0' && number !== '.') {
+                    this.currentValue = '';
+                }
+                if (number === '.' && this.currentValue.includes('.')) return;
+                this.currentValue += number;
+                this.updateDisplay();
+            }
+
+            handleAction(action) {
+                switch (action) {
+                    case 'add':
+                    case 'subtract':
+                    case 'multiply':
+                    case 'divide':
+                        this.handleOperator(action);
+                        break;
+                    case 'equals':
+                        this.calculate();
+                        break;
+                    case 'clear':
+                        this.clear();
+                        break;
+                    case 'clearEntry':
+                        this.clearEntry();
+                        break;
+                    case 'backspace':
+                        this.backspace();
+                        break;
+                    case 'decimal':
+                        this.appendNumber('.');
+                        break;
+                    case 'toggleSign':
+                        this.toggleSign();
+                        break;
+                    case 'sin':
+                    case 'cos':
+                    case 'tan':
+                        this.handleTrigonometry(action);
+                        break;
+                    case 'sqrt':
+                        this.handleSquareRoot();
+                        break;
+                    case 'pow2':
+                        this.handlePower(2);
+                        break;
+                    case 'pow':
+                        this.handleOperator('pow');
+                        break;
+                    case 'log':
+                        this.handleLogarithm(10);
+                        break;
+                    case 'ln':
+                        this.handleLogarithm(Math.E);
+                        break;
+                    case 'exp':
+                        this.appendNumber(Math.E.toString());
+                        break;
+                    case 'pi':
+                        this.appendNumber(Math.PI.toString());
+                        break;
+                    case 'fact':
+                        this.handleFactorial();
+                        break;
+                    case 'inv':
+                        this.handleInverse();
+                        break;
+                }
+            }
+
+            handleOperator(operator) {
+                if (this.operation !== null) {
+                    this.calculate();
+                }
+                this.previousValue = this.currentValue;
+                this.operation = operator;
+                this.shouldResetDisplay = true;
+                this.updateHistory();
+            }
+
+            calculate() {
+                if (!this.operation || !this.previousValue) return;
+
+                let result;
+                const prev = parseFloat(this.previousValue);
+                const current = parseFloat(this.currentValue);
+
+                try {
+                    switch (this.operation) {
+                        case 'add':
+                            result = prev + current;
+                            break;
+                        case 'subtract':
+                            result = prev - current;
+                            break;
+                        case 'multiply':
+                            result = prev * current;
+                            break;
+                        case 'divide':
+                            if (current === 0) throw new Error('Cannot divide by zero');
+                            result = prev / current;
+                            break;
+                        case 'pow':
+                            result = Math.pow(prev, current);
+                            break;
+                    }
+
+                    this.currentValue = this.formatResult(result);
+                    this.updateHistory(`${this.previousValue} ${this.getOperatorSymbol(this.operation)} ${this.currentValue} =`);
+                    this.operation = null;
+                    this.shouldResetDisplay = true;
+                    this.updateDisplay();
+                } catch (error) {
+                    alert(error.message);
+                    this.clear();
+                }
+            }
+
+            handleTrigonometry(func) {
+                const value = parseFloat(this.currentValue);
+                let result;
+
+                try {
+                    const radians = this.isInRadians ? value : (value * Math.PI / 180);
+                    switch (func) {
+                        case 'sin':
+                            result = Math.sin(radians);
+                            break;
+                        case 'cos':
+                            result = Math.cos(radians);
+                            break;
+                        case 'tan':
+                            result = Math.tan(radians);
+                            break;
+                    }
+
+                    this.updateHistory(`${func}(${this.currentValue}) =`);
+                    this.currentValue = this.formatResult(result);
+                    this.shouldResetDisplay = true;
+                    this.updateDisplay();
+                } catch (error) {
+                    alert('Invalid input for ' + func);
+                }
+            }
+
+            handleSquareRoot() {
+                const value = parseFloat(this.currentValue);
+                if (value < 0) {
+                    alert('Cannot calculate square root of negative number');
+                    return;
+                }
+                this.updateHistory(`√(${this.currentValue}) =`);
+                this.currentValue = this.formatResult(Math.sqrt(value));
+                this.shouldResetDisplay = true;
+                this.updateDisplay();
+            }
+
+            handlePower(power) {
+                const value = parseFloat(this.currentValue);
+                this.updateHistory(`${this.currentValue}^${power} =`);
+                this.currentValue = this.formatResult(Math.pow(value, power));
+                this.shouldResetDisplay = true;
+                this.updateDisplay();
+            }
+
+            handleLogarithm(base) {
+                const value = parseFloat(this.currentValue);
+                if (value <= 0) {
+                    alert('Invalid input for logarithm');
+                    return;
+                }
+                const result = base === Math.E ? Math.log(value) : Math.log10(value);
+                this.updateHistory(`log${base === Math.E ? 'e' : '10'}(${this.currentValue}) =`);
+                this.currentValue = this.formatResult(result);
+                this.shouldResetDisplay = true;
+                this.updateDisplay();
+            }
+
+            handleFactorial() {
+                const value = parseInt(this.currentValue);
+                if (value < 0 || !Number.isInteger(value)) {
+                    alert('Invalid input for factorial');
+                    return;
+                }
+                try {
+                    let result = 1;
+                    for (let i = 2; i <= value; i++) result *= i;
+                    this.updateHistory(`${this.currentValue}! =`);
+                    this.currentValue = this.formatResult(result);
+                    this.shouldResetDisplay = true;
+                    this.updateDisplay();
+                } catch (error) {
+                    alert('Number too large');
+                }
+            }
+
+            handleInverse() {
+                const value = parseFloat(this.currentValue);
+                if (value === 0) {
+                    alert('Cannot divide by zero');
+                    return;
+                }
+                this.updateHistory(`1/(${this.currentValue}) =`);
+                this.currentValue = this.formatResult(1 / value);
+                this.shouldResetDisplay = true;
+                this.updateDisplay();
+            }
+
+            toggleSign() {
+                this.currentValue = (parseFloat(this.currentValue) * -1).toString();
+                this.updateDisplay();
+            }
+
+            clear() {
+                this.currentValue = '0';
+                this.previousValue = '';
+                this.operation = null;
+                this.updateDisplay();
+                this.updateHistory('');
+            }
+
+            clearEntry() {
+                this.currentValue = '0';
+                this.updateDisplay();
+            }
+
+            backspace() {
+                if (this.shouldResetDisplay) return;
+                this.currentValue = this.currentValue.slice(0, -1) || '0';
+                this.updateDisplay();
+            }
+
+            updateDisplay() {
+                this.display.textContent = this.currentValue;
+            }
+
+            updateHistory(text) {
+                this.history.textContent = text || '';
+            }
+
+            formatResult(number) {
+                if (Math.abs(number) < 1e-10) return '0';
+                const formatted = number.toPrecision(10).replace(/\.?0+$/, '');
+                return formatted.length > 15 ? number.toExponential(9) : formatted;
+            }
+
+            getOperatorSymbol(operator) {
+                const symbols = {
+                    add: '+',
+                    subtract: '−',
+                    multiply: '×',
+                    divide: '÷',
+                    pow: '^'
+                };
+                return symbols[operator] || operator;
+            }
+
+            handleKeyboard(event) {
+                const key = event.key;
+                
+                if (!/^F\d+$/.test(key)) {
+                    event.preventDefault();
+                }
+
+                if (/^[0-9]$/.test(key)) {
+                    this.appendNumber(key);
+                }
+                else if (['+', '-', '*', '/', '^'].includes(key)) {
+                    const actions = {
+                        '+': 'add',
+                        '-': 'subtract',
+                        '*': 'multiply',
+                        '/': 'divide',
+                        '^': 'pow'
+                    };
+                    this.handleAction(actions[key]);
+                }
+                else {
+                    const actions = {
+                        'Enter': 'equals',
+                        '=': 'equals',
+                        'Backspace': 'backspace',
+                        'Delete': 'clear',
+                        '.': 'decimal',
+                        'Escape': 'clear'
+                    };
+                    if (actions[key]) {
+                        this.handleAction(actions[key]);
+                    }
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            new ScientificCalculator();
+        });
+    </script>
+</body>
+</html>
