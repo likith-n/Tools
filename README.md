@@ -1,5 +1,5 @@
 # Tools
-🔧 Multi-Tools Website
+🔧 Meni-Tools Website
 
 📌 Overview
 This repository contains a fully responsive Meni-Tools Website built using Cursor AI, Deepseek, Chatgpt, Groks AI. The website features  useful tools covering image conversions, SEO utilities, calculators, text utilities, unit converters, security tools, developer tools, and more.
