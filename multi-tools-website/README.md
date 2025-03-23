@@ -1,7 +1,7 @@
-# Meni-Tools Website
+# ToolNest Website
 
 ## Overview
-The Meni-Tools Website is a fully responsive web application that provides users with access to a variety of tools. Each tool has its own dedicated page, allowing for modular development and easy navigation.
+The ToolNest Website is a fully responsive web application that provides users with access to a variety of tools. Each tool has its own dedicated page, allowing for modular development and easy navigation.
 
 ## Features
 -  Each tool is represented on its own page, ensuring a clean and organized structure.
